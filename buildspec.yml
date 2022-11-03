@@ -1,19 +1,26 @@
-version: 0.2
 
+
+version: 0.2
 phases:
   install:
     runtime-versions:
-      java: corretto11
+      nodejs: 12
   pre_build:
     commands:
-      - echo Nothing to do in the pre_build phase...
+      - curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+      - sudo apt-get install -y nodejs
+      - sudo npm install npm@latest -g
+      - apt-get update -y
+      - apt-get install -y jq    
   build:
     commands:
-      - echo Build started on `date`
-      - mvn install
+      - npm install -- force
+      - echo Compiling the Node.js code
   post_build:
     commands:
       - echo Build completed on `date`
 artifacts:
   files:
-    - target/messageUtil-1.0.jar
+    - server.js
+    - package.json
+    - controller/*

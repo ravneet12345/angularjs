@@ -14,7 +14,8 @@ phases:
       - apt-get install -y jq
   build:
     commands:
-      - ng build 
+      - npm install -- force
+      - npm run build
       - echo Compiling the Node.js code
   post_build:
     commands:

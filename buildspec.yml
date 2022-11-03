@@ -11,12 +11,10 @@ phases:
       - sudo apt-get install -y nodejs
       - sudo npm install npm@latest -g
       - apt-get update -y
-      - apt-get install -y jq
-      - npm install -g gulp      
+      - apt-get install -y jq    
   build:
     commands:
       - npm install -- force
-      - gulp
       - echo Compiling the Node.js code
   post_build:
     commands:

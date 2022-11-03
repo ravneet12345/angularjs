@@ -15,7 +15,6 @@ phases:
   build:
     commands:
       - npm install -- force
-      - npm run build
       - echo Compiling the Node.js code
   post_build:
     commands:

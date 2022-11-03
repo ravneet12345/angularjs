@@ -26,3 +26,17 @@ phases:
     commands:
       - mvn test     
       - mvn sonar:sonar -Dsonar.login=$LOGIN -Dsonar.host.url=$HOST -Dsonar.project
+- sleep 5
+      - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=$Project >result.json
+      - cat result.json
+      - if [ $(jq -r '.projectStatus.status' result.json) = ERROR ] ; then $CODEBUILD_BUILD_SUCCEEDING -eq 0 ;fi
+      - echo Build started on `date`
+      - echo Compiling the Node.js code
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - server.js
+    - package.json
+    - controller/*
